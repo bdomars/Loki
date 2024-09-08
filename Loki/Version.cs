@@ -15,6 +15,7 @@ namespace Loki
         /// </summary>
         private static readonly int[] CompatibleProfileVersions =
         {
+            40,
             39,
             38,
             37,

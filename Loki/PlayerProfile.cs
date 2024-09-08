@@ -58,6 +58,11 @@ namespace Loki
                 playerStats[PlayerStatType.Builds] = reader.ReadInt32();
             }
 
+            if (version >= 40)
+            {
+                bool firstSpawn = reader.ReadBoolean();
+            }
+
             int worldCount = reader.ReadInt32();
             var worldData = new List<(long, WorldPlayerData)>();
             for (var i = 0; i < worldCount; i++)

@@ -135,18 +135,33 @@ namespace Loki
             var playerDataStartPos = input.Position;
 
             var version = reader.ReadInt32();
+            Player player;
 
-            var player = new Player
+            if (version < 28) {
+                player = new Player
+                {
+                    _maxHealth = version >= 7 ? reader.ReadSingle() : 25f,
+                    _curHealth = reader.ReadSingle(),
+                    _maxStamina = version >= 10 ? reader.ReadSingle() : 100f,
+                    _firstSpawn = version < 8 || reader.ReadBoolean(),
+                    _timeSinceDeath = version >= 20 ? reader.ReadSingle() : 999999f,
+                    _guardianPower = version >= 23 ? reader.ReadString() : string.Empty,
+                    _guardianPowerCooldown = version >= 24 ? reader.ReadSingle() : default,
+                    _shownTutorials = new List<string>(),
+                };
+            } else
             {
-                _maxHealth = version >= 7 ? reader.ReadSingle() : 25f,
-                _curHealth = reader.ReadSingle(),
-                _maxStamina = version >= 10 ? reader.ReadSingle() : 100f,
-                _firstSpawn = version < 8 || reader.ReadBoolean(),
-                _timeSinceDeath = version >= 20 ? reader.ReadSingle() : 999999f,
-                _guardianPower = version >= 23 ? reader.ReadString() : string.Empty,
-                _guardianPowerCooldown = version >= 24 ? reader.ReadSingle() : default,
-                _shownTutorials = new List<string>(),
-            };
+                player = new Player
+                {
+                    _maxHealth = version >= 7 ? reader.ReadSingle() : 25f,
+                    _curHealth = reader.ReadSingle(),
+                    _maxStamina = version >= 10 ? reader.ReadSingle() : 100f,
+                    _timeSinceDeath = version >= 20 ? reader.ReadSingle() : 999999f,
+                    _guardianPower = version >= 23 ? reader.ReadString() : string.Empty,
+                    _guardianPowerCooldown = version >= 24 ? reader.ReadSingle() : default,
+                    _shownTutorials = new List<string>(),
+                };
+            }
 
             if (version == 2)
                 input.Position += 12; // Skip over 'ZDOID', long + uint 
