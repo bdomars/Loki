@@ -23,6 +23,7 @@ namespace Loki
         public Dictionary<string, float> KnownWorldKeys { get; set; }
         public Dictionary<string, float> KnownCommands { get; set; }
         public PlayerStats Stats { get; private set; }
+        public bool FirstSpawn { get; private set; }
         public Player Player { get; private set; }
         private List<(long, WorldPlayerData)> _worldData;
         private PlayerProfile() { }
@@ -58,9 +59,10 @@ namespace Loki
                 playerStats[PlayerStatType.Builds] = reader.ReadInt32();
             }
 
+            bool firstSpawn = false;
             if (version >= 40)
             {
-                bool firstSpawn = reader.ReadBoolean();
+                firstSpawn = reader.ReadBoolean();
             }
 
             int worldCount = reader.ReadInt32();
@@ -152,6 +154,7 @@ namespace Loki
                 KnownCommands = knownCommands,
                 _worldData = worldData,
                 Player = player,
+                FirstSpawn = firstSpawn,
             };
         }
 
@@ -172,6 +175,8 @@ namespace Loki
             {
                 writer.Write(Stats[(PlayerStatType)i]);
             }
+
+            writer.Write(FirstSpawn);
 
             writer.Write(_worldData.Count);
             foreach (var (key, worldData) in _worldData)

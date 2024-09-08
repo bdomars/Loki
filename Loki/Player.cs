@@ -15,7 +15,7 @@ namespace Loki
 {
     public class Player: INotifyPropertyChanged
     {
-        private const int Version = 27;
+        private const int Version = 28;
         private const int InventoryVersion = 106;
         private const int SkillVersion = 2;
 
@@ -330,7 +330,6 @@ namespace Loki
             writer.Write(_maxHealth);
             writer.Write(_curHealth);
             writer.Write(_maxStamina);
-            writer.Write(_firstSpawn);
             writer.Write(_timeSinceDeath);
             writer.Write(_guardianPower);
             writer.Write(_guardianPowerCooldown);
