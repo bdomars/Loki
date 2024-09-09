@@ -58,7 +58,6 @@ namespace Loki
         public static CharacterFile FromPath(string characterFilePath)
         {
             string name = Path.GetFileNameWithoutExtension(characterFilePath);
-
             try
             {
                 using var fileStream = File.OpenRead(characterFilePath);
@@ -67,7 +66,7 @@ namespace Loki
                 return new CharacterFile
                     {FilePath = characterFilePath, PlayerName = p.PlayerName, PlayerId = p.PlayerId};
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // TODO: Log error.
                 return new CharacterFile

@@ -44,6 +44,7 @@ namespace Loki
             {
                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
         }
 
         private void RefreshCharacterFiles(bool loadBackups)
@@ -166,7 +167,7 @@ namespace Loki
                 });
 
                 character.PlayerName = Profile.PlayerName;
-                ShowNotification(Loki.Properties.Resources.Character_Saved);
+                _ = ShowNotification(Loki.Properties.Resources.Character_Saved);
             }
             catch (Exception ex)
             {
@@ -196,7 +197,7 @@ namespace Loki
         private void RevertExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             LoadProfile(SelectedCharacterFile);
-            ShowNotification(Loki.Properties.Resources.Character_Reverted);
+            _ = ShowNotification(Loki.Properties.Resources.Character_Reverted);
         }
 
         private void SaveExecuted(object sender, ExecutedRoutedEventArgs e)
@@ -226,7 +227,7 @@ namespace Loki
             var textToFormat = percent < 0f
                 ? Loki.Properties.Resources._0__skills_decreased__1__percent
                 : Loki.Properties.Resources._0__skills_increased__1__percent;
-            ShowNotification(string.Format(textToFormat, count, percent.ToString("+0;-#")));
+            _ = ShowNotification(string.Format(textToFormat, count, percent.ToString("+0;-#")));
         }
 
         private void CanRepairInventoryItemsExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -245,7 +246,7 @@ namespace Loki
                     count++;
                 }
             });
-            ShowNotification(string.Format(Loki.Properties.Resources.Repaired__0__items, count));
+            _ = ShowNotification(string.Format(Loki.Properties.Resources.Repaired__0__items, count));
         }
 
         private void CanFillInventoryStacksExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -264,7 +265,8 @@ namespace Loki
                     count++;
                 }
             });
-            ShowNotification(string.Format(Loki.Properties.Resources.Filled__0__stacks, count));
+
+            _ = ShowNotification(string.Format(Loki.Properties.Resources.Filled__0__stacks, count));
         }
 
         private void ItemPickerItemMouseMove(object sender, MouseEventArgs e)

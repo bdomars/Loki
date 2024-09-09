@@ -71,7 +71,7 @@ namespace Loki
                     MessageBoxImage.Information);
                 DialogResult = true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // TODO: Log errors from restoring.
                 MessageBox.Show("Failed to restore backup!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
